@@ -15,7 +15,7 @@ public abstract class GameBase
     private readonly uint _frameRateLimit = 128;
     private readonly Text _fpsDisplay = new
     (
-        "", new Font(@"C:\Users\huons\OneDrive\Documents\programming\C_sharp\PhysicsSim\PhysicsSim\Resources\Ubuntu-Regular.ttf")
+        "", new Font(new Font(Environment.CurrentDirectory+@"\Resources\Ubuntu-Regular.ttf"))
     ) { CharacterSize = 16 };
     
     public readonly Dictionary<string, Entity> _entities = new();

@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using System.Data.SqlTypes;
+using SFML.Graphics;
 using SFML.System;
 using static PhysicsSim.Values;
 
@@ -102,6 +103,44 @@ public class Entity : Transformable, Drawable
 
         return (xLeftCollision, xRightCollision, yTopCollision, yBelowCollision);
     }
+
+    /*public bool SATCollision()
+    {
+        FloatRect
+        foreach (Vector2f axis in axes)
+        {
+            float sprite1Min = float.MaxValue;
+            float sprite1Max = float.MinValue;
+            float sprite2Min = float.MaxValue;
+            float sprite2Max = float.MinValue;
+
+            // Project sprite1 onto the axis
+            foreach (Vector2f vertex in _points)
+            {
+                float projection = vertex.X * axis.X + vertex.Y * axis.Y;
+                if (projection < sprite1Min) sprite1Min = projection;
+                if (projection > sprite1Max) sprite1Max = projection;
+            }
+
+            // Project sprite2 onto the axis
+            foreach (Vector2f vertex in _points)
+            {
+                float projection = vertex.X * axis.X + vertex.Y * axis.Y;
+                if (projection < sprite2Min) sprite2Min = projection;
+                if (projection > sprite2Max) sprite2Max = projection;
+            }
+
+            // Check for overlap
+            if (sprite1Max < sprite2Min || sprite2Max < sprite1Min)
+            {
+                // No overlap on this axis, so the sprites are not colliding
+                return false;
+            }
+        }
+
+// If we got here, then the sprites are colliding
+        return true;
+    }*/
 
     public Vector2f GetPointPosition(int pointIndex)
     {
