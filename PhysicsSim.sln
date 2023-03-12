@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhysicsSim", "PhysicsSim\PhysicsSim.csproj", "{1F2423D1-2D0E-48C3-9DF6-6A1677179791}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F2423D1-2D0E-48C3-9DF6-6A1677179791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F2423D1-2D0E-48C3-9DF6-6A1677179791}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F2423D1-2D0E-48C3-9DF6-6A1677179791}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F2423D1-2D0E-48C3-9DF6-6A1677179791}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

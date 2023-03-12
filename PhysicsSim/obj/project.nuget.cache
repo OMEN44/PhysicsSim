@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "QSVsDKoz2hdE/gQwpgl8j45foWGNojvckEDsXnTfX71AV5+4hAto/E7PbdFVDhM51q9QIPyTTm2tUPS2B9j7pQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\huons\\OneDrive\\Documents\\programming\\C_sharp\\PhysicsSim\\PhysicsSim\\PhysicsSim.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\huons\\.nuget\\packages\\csfml\\2.5.0\\csfml.2.5.0.nupkg.sha512",
+    "C:\\Users\\huons\\.nuget\\packages\\sfml.audio\\2.5.0\\sfml.audio.2.5.0.nupkg.sha512",
+    "C:\\Users\\huons\\.nuget\\packages\\sfml.graphics\\2.5.0\\sfml.graphics.2.5.0.nupkg.sha512",
+    "C:\\Users\\huons\\.nuget\\packages\\sfml.net\\2.5.0\\sfml.net.2.5.0.nupkg.sha512",
+    "C:\\Users\\huons\\.nuget\\packages\\sfml.system\\2.5.0\\sfml.system.2.5.0.nupkg.sha512",
+    "C:\\Users\\huons\\.nuget\\packages\\sfml.window\\2.5.0\\sfml.window.2.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
