@@ -6,10 +6,10 @@ namespace PhysicsSim;
 public class PhysicsGame: GameBase
 {
 
-    private bool _paused = true;
+    
     public override void Update(float deltaTime)
     {
-        if (!_paused)
+        if (!base.Paused)
         {
             foreach (KeyValuePair<string,Entity> e in _entities)
             {
@@ -69,7 +69,7 @@ public class PhysicsGame: GameBase
                         ShowGridlines = !ShowGridlines;
                         break;
                     case Keyboard.Key.P:
-                        _paused = !_paused;
+                        base.Paused = !base.Paused;
                         break;
                 }
                 _keyDown = true;

@@ -18,6 +18,15 @@ public abstract class GameBase
         "", new Font(new Font(Environment.CurrentDirectory+@"\Resources\Ubuntu-Regular.ttf"))
     ) { CharacterSize = 16 };
     
+    private readonly Text _pausedText = new (
+        "Paused", new Font(new Font(Environment.CurrentDirectory+@"\Resources\Ubuntu-Regular.ttf"))
+    ) { CharacterSize = 16 };
+    private bool _paused = true;
+    public bool Paused
+    {
+        get => _paused;
+        set => _paused = value;
+    }
     public readonly Dictionary<string, Entity> _entities = new();
 
     public Clock GameClock
@@ -121,7 +130,12 @@ public abstract class GameBase
         }
         
         _window.Draw(_fpsDisplay);
-        
+        if (Paused)
+        {
+            _pausedText.Position = new Vector2f(Values.WindowWidth - _pausedText.GetGlobalBounds().Width,0);
+            _window.Draw(_pausedText);
+        }
+       
         //Maybe check if an entity has moved before drawing
         foreach (var entity in _entities.Values)
         {
