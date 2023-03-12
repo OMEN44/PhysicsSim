@@ -1,5 +1,4 @@
-﻿using PhysicsSim.Entities;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 

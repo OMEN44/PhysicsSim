@@ -1,5 +1,4 @@
-﻿using PhysicsSim.Entities;
-using SFML.System;
+﻿using SFML.System;
 using SFML.Window;
 
 namespace PhysicsSim;
@@ -17,7 +16,6 @@ public class PhysicsGame: GameBase
                 Entity entity = e.Value;
                 if (!entity.IsStatic)
                 {
-                    Console.WriteLine(entity.CheckCollision());
                     entity.ResolveMotion(deltaTime, entity.CheckCollision());
                 }
             }

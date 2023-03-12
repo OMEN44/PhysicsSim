@@ -1,11 +1,10 @@
-﻿using System.Runtime.InteropServices.ComTypes;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFML.System;
 using static PhysicsSim.Values;
 
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace PhysicsSim.Entities;
+namespace PhysicsSim;
 
 public class Entity : Transformable, Drawable
 {
@@ -23,6 +22,9 @@ public class Entity : Transformable, Drawable
         get => PixelToPosition(Position);
         private set => Position = PositionToPixel(value);
     }
+    
+    // idk units 1 is full bounce
+    public float Bounciness = 0.8f;
 
     // shape properties
     private readonly Vertex[] _vertices;
@@ -51,11 +53,6 @@ public class Entity : Transformable, Drawable
     public void ResolveMotion(float dt, (int, int, int, int) collisions)
     {
         Velocity += Acceleration * dt;
-        
-        if (collisions.Item1 == 1 && Velocity.X < 0) Console.WriteLine("1");
-        if (collisions.Item2 == 1 && Velocity.X > 0) Console.WriteLine("2");
-        if (collisions.Item3 == 1 && Velocity.Y > 0) Console.WriteLine("3");
-        if (collisions.Item4 == 1 && Velocity.Y < 0) Console.WriteLine("4");
 
         if (collisions.Item1 == 1 && Velocity.X < 0)
         {
@@ -78,10 +75,9 @@ public class Entity : Transformable, Drawable
         if (collisions.Item4 == 1 && Velocity.Y < 0)
         {
             Velocity.Y = 0;
-            Acceleration.Y = 0;
-            Pos = new(Pos.X, _points.Max(p => p.Y) - _points.Min(p => p.Y));
+            Acceleration.Y = 0;/*
+            Pos = new(Pos.X, _points.Max(p => p.Y) - _points.Min(p => p.Y));*/
         }
-        Console.WriteLine(Pos);
         Pos += Velocity * dt;
     }
 
