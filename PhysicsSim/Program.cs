@@ -16,169 +16,58 @@ public class Program
             new(1, 1), 
             new(0, 1)
         };
+        
+        Vector2f[] vertices1 =
+        {
+            new(0, 0), 
+            new(300, -200), 
+            new(400, 0), 
+            new(800, 100), 
+            new(400, 200), 
+            new(200, 300)
+        };
+
+        Body b = new Body(Color.Red, Values.PositionToPixel(new(20, 20)), 1, 1, false, vertices1);
+        
+        application.AddEntity("newBody", b);
+        
 
         Vector2f pos = new Vector2f(3, 40);
     
         Entity rect = new Entity(Color.Green, pos, false, 10, new(5,0), vertices);
-
-
+        
         application.AddEntity("rect", rect);
         
         application.Run();
-        
-        /* Create a window to display the simulation
-            RenderWindow window = new RenderWindow(new VideoMode(800, 600), "Physics Simulation");
-            window.SetFramerateLimit(60);
-
-            // Define the properties of the simulation
-            const float gravity = 9.81f;
-            const float restitution = 0.7f;
-            const float friction = 0.5f;
-
-            // Create a list to store the objects in the simulation
-            List<PhysicsObject> objects = new List<PhysicsObject>();
-
-            // Create a ground object
-            PhysicsObject ground = new PhysicsObject(new Vector2f(400, 550), new Vector2f(800, 50), Color.Green, true);
-            objects.Add(ground);
-
-            // Create a ball object
-            PhysicsObject ball = new PhysicsObject(new Vector2f(100, 100), new Vector2f(50, 50), Color.Red);
-            ball.Velocity = new Vector2f(100, 0);
-            ball.Mass = 1;
-            objects.Add(ball);
-
-            // Start the simulation loop
-            Clock clock = new Clock();
-            while (window.IsOpen)
-            {
-                // Handle events
-                window.DispatchEvents();
-
-                // Update the simulation
-                float deltaTime = clock.Restart().AsSeconds();
-                foreach (PhysicsObject obj in objects)
-                {
-                    // Apply gravity
-                    if (!obj.IsStatic)
-                    {
-                        obj.ApplyForce(new Vector2f(0, gravity * obj.Mass));
-                    }
-
-                    // Update the position and velocity of the object
-                    obj.Update(deltaTime);
-
-                    // Check for collisions with the ground
-                    if (obj.IsCollidingWith(ground))
-                    {
-                        // Calculate the collision response
-                        Vector2f normal = new Vector2f(0, -1);
-                        float impulse = -(1 + restitution) * Vector2f.Dot(obj.Velocity, normal);
-                        impulse /= (1 / obj.Mass);
-                        Vector2f collisionImpulse = impulse * normal;
-                        Vector2f frictionImpulse = friction * obj.Mass * obj.Velocity;
-                        obj.ApplyImpulse(collisionImpulse + frictionImpulse);
-                    }
-
-                    // Check for collisions with other objects
-                    foreach (PhysicsObject other in objects)
-                    {
-                        if (obj != other && obj.IsCollidingWith(other))
-                        {
-                            // Calculate the collision response
-                            Vector2f normal = (other.Position - obj.Position).Normalize();
-                            float impulse = -(1 + restitution) * Vector2f.Dot(obj.Velocity - other.Velocity, normal);
-                            impulse /= (1 / obj.Mass) + (1 / other.Mass);
-                            Vector2f collisionImpulse = impulse * normal;
-                            Vector2f frictionImpulse = friction * obj.Mass * (obj.Velocity - other.Velocity).Normalize();
-                            obj.ApplyImpulse(collisionImpulse + frictionImpulse);
-                            other.ApplyImpulse(-collisionImpulse - frictionImpulse);
-                        }
-                    }
-                }
-
-                // Clear the window
-                window.Clear(Color.Black);
-
-                // Draw the objects
-                foreach (PhysicsObject obj in objects)
-                {
-                    obj.Draw(window);
-                }
-
-                // Display the window
-                window.Display();
-            }*/
-            
-            
     }
-    
-    class PhysicsObject
+
+    public static Vector2f FindCentroid(Vector2f[] vectors)
     {
-        public Vector2f Position { get; set; }
-        public Vector2f Size { get; set; }
-        public Vector2f Velocity { get; set; }
-        public float Mass { get; set; }
-        public Color Color { get; set; }
-        public bool IsStatic { get; set; }
+        int numVertices = vectors.GetLength(0);
 
-        private RectangleShape shape;
+        float totalArea = 0;
+        float cx = 0;
+        float cy = 0;
 
-        public PhysicsObject(Vector2f position, Vector2f size, Color color, bool isStatic = false)
+        for (int i = 0; i < numVertices; i++)
         {
-            Position = position;
-            Size = size;
-            Velocity = new Vector2f(0, 0);
-            Mass = 0;
-            Color = color;
-            IsStatic = isStatic;
+            float xi = vectors[i].X;
+            float yi = vectors[i].Y;
 
-            shape = new RectangleShape(size);
-            shape.Position = position;
-            shape.FillColor = color;
+            float xj = vectors[(i + 1) % numVertices].X;
+            float yj = vectors[(i + 1) % numVertices].Y;
+
+            float area = (xi * yj - xj * yi) / 2;
+            totalArea += area;
+
+            cx += (xi + xj) * area;
+            cy += (yi + yj) * area;
         }
 
-        public void Update(float deltaTime)
-        {
-            if (!IsStatic)
-            {
-                // Update the position and velocity using Euler integration
-                Position += Velocity * deltaTime;
-                Velocity += GetAcceleration() * deltaTime;
-            }
+        cx /= 3 * totalArea;
+        cy /= 3 * totalArea;
 
-            // Update the shape
-            shape.Position = Position;
-        }
-
-        public void Draw(RenderWindow window)
-        {
-            window.Draw(shape);
-        }
-
-        public void ApplyForce(Vector2f force)
-        {
-            Velocity += force / Mass;
-        }
-
-        public void ApplyImpulse(Vector2f impulse)
-        {
-            Velocity += impulse / Mass;
-        }
-
-        public bool IsCollidingWith(PhysicsObject other)
-        {
-            // Check for collision between two objects using AABB test
-            return Position.X < other.Position.X + other.Size.X &&
-                   Position.X + Size.X > other.Position.X &&
-                   Position.Y < other.Position.Y + other.Size.Y &&
-                   Position.Y + Size.Y > other.Position.Y;
-        }
-
-        private Vector2f GetAcceleration()
-        {
-            // Calculate the acceleration of the object based on the net force
-            return new Vector2f(0, 0);
-        }
+        Console.WriteLine("The center of gravity is ({0}, {1}) area is {2}", cx, cy, totalArea);
+        return new(cx, cy);
     }
 }

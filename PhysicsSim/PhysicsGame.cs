@@ -1,15 +1,15 @@
-﻿using SFML.System;
+﻿using SFML.Graphics;
+using SFML.System;
 using SFML.Window;
 
 namespace PhysicsSim;
 
 public class PhysicsGame: GameBase
 {
-
-    
     public override void Update(float deltaTime)
     {
-        if (!base.Paused)
+        
+        if (!Paused)
         {
             foreach (KeyValuePair<string,Entity> e in _entities)
             {

@@ -27,7 +27,10 @@ public abstract class GameBase
         get => _paused;
         set => _paused = value;
     }
+    //old
     public readonly Dictionary<string, Entity> _entities = new();
+    //new
+    public readonly Dictionary<string, Body> _bodies = new();
 
     public Clock GameClock
     {
@@ -136,16 +139,26 @@ public abstract class GameBase
             _window.Draw(_pausedText);
         }
        
-        //Maybe check if an entity has moved before drawing
         foreach (var entity in _entities.Values)
         {
             _window.Draw(entity);
         }
+        foreach (KeyValuePair<string, Body> body in _bodies)
+        {
+            _window.Draw(body.Value);
+        }
     }
 
+    //old
     public void AddEntity(string id, Entity entity)
     {
         if (!_entities.ContainsKey(id)) _entities.Add(id, entity);
+    }
+    
+    //new
+    public void AddEntity(string id, Body body)
+    {
+        if (!_bodies.ContainsKey(id)) _bodies.Add(id, body);
     }
 
     public void DeleteEntity(string id)
