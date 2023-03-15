@@ -27,10 +27,22 @@ public class Program
             new(200, 300)
         };
 
-        Body b = new Body(Color.Red, Values.PositionToPixel(new(20, 20)), 1, 1, false, vertices1);
+        Body c = new Body(Color.Red, Values.PositionToPixel(new(20, 20)), 1, 1, false, vertices1);
         
+        
+        
+        Vector2f[] vertices3 =
+        {
+            new(0, 0), 
+            new(16, 16), 
+            new(16, 0), 
+            new(0, -16)
+        };
+
+        Body b = new Body(Color.Green, Values.PositionToPixel(new(10, 10)), 1, 1, false, vertices3);
         application.AddEntity("newBody", b);
-        
+        application.AddEntity("newBodyc", c);
+        Console.WriteLine(b._area);
 
         Vector2f pos = new Vector2f(3, 40);
     
